@@ -204,7 +204,7 @@ public class UCModelMatcher {
     }
 
     private String preparePackageFilter(MicroControllerModel ucModel) {
-        int package_lvl = ucModel.parametersValues.get(MicroControllerModel.UC_PACKAGE);
+        int package_lvl = ucModel.parametersValues.get(MicroControllerModel.CM_PACKAGE);
         StringBuilder sb = new StringBuilder("( package_tht = 1");
 
         if (package_lvl >= MicroControllerModel.PACKAGE_SIMPLE_SMD) {
@@ -224,7 +224,7 @@ public class UCModelMatcher {
     }
 
     private String prepareVoltageFilter(MicroControllerModel ucModel) {
-        int optimalVoltage = ucModel.parametersValues.get(MicroControllerModel.OPTIMAL_VOLTAGE);
+        int optimalVoltage = ucModel.parametersValues.get(MicroControllerModel.MAXIMAL_VOLTAGE);
         int minimalVoltage = ucModel.parametersValues.get(MicroControllerModel.MINIMAL_VOLTAGE);
         if (minimalVoltage > optimalVoltage) {
             minimalVoltage = optimalVoltage;

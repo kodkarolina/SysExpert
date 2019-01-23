@@ -2,91 +2,91 @@
   {
     "rule_id": 0,
     "rules" : {
-      "small_series" : [null, true]
+      "low_price" : [true, null]
     }
   },
   {
     "rule_id": 1,
     "rules" : {
-      "small_series" : [true, false]
+      "open_space" : [false, true]
     }
   },
   {
     "rule_id": 2,
     "rules" : {
-      "IO_ports" : [0, 5, 32, 75]
+      "range" : [10, 100, 500, 501]
     }
   },
   {
     "rule_id": 3,
     "rules" : {
-      "IO_expanders" : [true, false]
+      "optimal_voltage" : [3000, 5000, 9000, null]
     }
   },
   {
     "rule_id": 4,
     "rules" : {
-      "counters" : [0, 1, 2, 3]
+      "encryption" : [true, false]
     }
   },
   {
     "rule_id": 5,
     "rules" : {
-      "number_of_adc" : [0, 1, 8, 10, 16]
+      "communication_direction" : [null, 2]
     }
   },
   {
     "rule_id": 7,
     "rules" : {
-      "adc_resolution" : [8, 10, 12]
+      "communication_direction" : [0, 1]
     }
   },
   {
     "rule_id": 8,
     "rules" : {
-      "number_of_dac" : [0, 1, 2]
+      "package" : [0, 1]
     }
   },
   {
     "rule_id": 9,
     "rules" : {
-      "dac_resolution" : [0, 8, 10, 12]
+      "communication_standard" : [0, 1, 2]
     }
   },
   {
     "rule_id": 10,
     "rules" : {
-      "power_saving" : [false, true]
+      "programmable" : [true, false]
     }
   },
   {
     "rule_id": 11,
     "rules" : {
-      "optimal_voltage" : [2400, 3300, 5000]
+      "power_saving" : [true, false]
     }
   },
   {
     "rule_id": 12,
     "rules" : {
-      "minimal_voltage" : [1800, 3000, 4500]
+      "communication_interface" : [0, 1, 2, 3]
     }
   },
   {
     "rule_id": 13,
     "rules" : {
-      "os_support" : [true, false]
+      "communication_speed" : [true, false]
     }
   },
   {
     "rule_id": 14,
     "rules" : {
-      "high_performance" : [true, false]
+      "arduino_support" : [true, false]
     }
   },
   {
     "rule_id": 15,
     "rules" : {
-      "high_performance" : [true, null],
+      "bluetooth" : [0, 1, 2, 3, 4],
       "fpu" : [true, false]
     }
   },
