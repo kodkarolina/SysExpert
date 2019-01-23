@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class MicroControllerModel {
+public class CModuleModel {
 
     public final static int BLUETOOTH_2_0_EDR = 1;
     public final static int PACKAGE_SIMPLE_SMD = 2;
@@ -31,7 +31,7 @@ public class MicroControllerModel {
     public HashMap<String, Boolean> parametersFlags;
     public HashMap<String, Integer> parametersValues;
 
-    public MicroControllerModel(){
+    public CModuleModel(){
         parametersFlags = new HashMap<>();
         parametersValues = new HashMap<>();
 
@@ -47,7 +47,7 @@ public class MicroControllerModel {
 
     @Override
     public String toString() {
-        return "MicroControllerModel{\n\r" +
+        return "CModuleModel{\n\r" +
                 "\tparametersFlags=" + parametersFlags + ",\n\r" +
                 "\tparametersValues=" + parametersValues + "\n\r" +
                 '}';

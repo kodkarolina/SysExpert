@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
 
-    private String connectionString = "jdbc:sqlite:data/ucDatabase.db";
+    private String connectionString = "jdbc:sqlite:data/cmDatabase.db";
     private Connection connection;
 
     public void init() throws SQLException {
@@ -28,46 +28,32 @@ public class Database {
     }
 
     private void createTable() throws SQLException {
-        String createTableStatement = "CREATE TABLE IF NOT EXISTS 'uc_database' (" +
+        String createTableStatement = "CREATE TABLE IF NOT EXISTS 'cm_database' (" +
                 "'id'	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                "'manufacturer'	TEXT," +
-                "'product_name'	TEXT," +
-                "'price'	REAL," +
-                "'core'	TEXT," +
-                "'flash_kb'	INTEGER," +
-                "'sram_bytes'	INTEGER," +
-                "'pin_count'	INTEGER," +
-                "'cpu_speed'	INTEGER," +
-                "'comparators'	INTEGER," +
-                "'ADC_input'	INTEGER," +
-                "'ADC_resolution'	INTEGER," +
-                "'DAC_output'	INTEGER," +
-                "'DAC_resolution'	INTEGER," +
-                "'counters'	INTEGER," +
+                "'name'	TEXT," +
+                "'bluetooth'	INTEGER," +
+                "'wifi'	INTEGER," +
+                "'radio'	INTEGER," +
+                "'range'	INTEGER," +
+                "'voltage_min'	INTEGER," +
+                "'voltage_max'	INTEGER," +
+                "'power_saving'	INTEGER," +
+                "'direction'	INTEGER," +
                 "'UART'	INTEGER," +
                 "'SPI'	INTEGER," +
                 "'I2C'	INTEGER," +
-                "'CAN'	INTEGER," +
                 "'USB'	INTEGER," +
-                "'temp_min'	INTEGER," +
-                "'temp_max'	INTEGER," +
-                "'voltage_min'	INTEGER," +
-                "'voltage_max'	INTEGER," +
-                "'power_consumption'	REAL," +
-                "'FPU'	INTEGER," +
-                "'graphics_support'	INTEGER," +
-                "'external_ram_support'	INTEGER," +
-                "'parallel_interfaces'	TEXT," +
-                "'serial_interfaces'	TEXT," +
-                "'general_description'	TEXT," +
-                "'packages'	TEXT," +
-                "'package_tht'	INTEGER," +
-                "'package_easy'	INTEGER," +
-                "'package_hard'	INTEGER," +
-                "'package_bga'	INTEGER);";
+                "'programmable'	INTEGER," +
+                "'package'	INTEGER," +
+                "'communication_speed' REAL, " +
+                "'power_consumption'	INTEGER," +
+                "'work_freq'	REAL," +
+                "'encryption'	INTEGER," +
+                "'price'	REAL," +
+                "'arduino_support'	INTEGER);";
 
         Statement statement = connection.createStatement();
-        statement.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='uc_database';");
+        statement.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='cm_database';");
         if (!statement.getResultSet().next()) {
             statement.execute(createTableStatement);
             System.out.println("Potato");

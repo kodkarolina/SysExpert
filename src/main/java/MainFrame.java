@@ -1,5 +1,5 @@
-import UCdatabase.Database;
-import UCdatabase.MicroControllerEntity;
+import CMdatabase.Database;
+import CMdatabase.CModuleEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jdk.nashorn.api.scripting.URLReader;
@@ -20,9 +20,9 @@ public class MainFrame extends JFrame {
     private ResultsScreen resultsScreen;
 
     private List<IQuestionModel> questions;
-    private List<MicroControllerModelRule> modelRules;
+    private List<CModuleModelRule> modelRules;
 
-    private UCModelGenerator ucModelGenerator;
+    private CModuleModelGenerator cmModelGenerator;
 
     public MainFrame(String title) {
         super(title);
@@ -35,8 +35,8 @@ public class MainFrame extends JFrame {
         setContentPane(startPanel);
     }
 
-    private void searchUC(MicroControllerModel ucModel) {
-        System.out.println(ucModel.toString());
+    private void searchCM(CModuleModel cmModel) {
+        System.out.println(cmModel.toString());
         Database db = new Database();
         try {
             db.init();
@@ -45,13 +45,13 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(null, e.toString(), "Błąd bazy danych", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-        UCModelMatcher matcher = new UCModelMatcher(db.getConnection());
+        CMModelMatcher matcher = new CMModelMatcher(db.getConnection());
 
-        List<MicroControllerEntity> ucList = matcher.matchUCModel(ucModel);
+        List<CModuleEntity> cmList = matcher.matchCMModel(cmModel);
 
-        System.out.println(ucList);
+        System.out.println(cmList);
 
-        resultsScreen = new ResultsScreen(ucList);
+        resultsScreen = new ResultsScreen(cmList);
         resultsScreen.setNavigationScreenListener(buttonID -> {
             if (buttonID == ResultsScreen.ScreenNavigationListener.NEXT_BUTTON){
                 setContentPane(startPanel);
@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
         resultsScreen.getResultPanel().updateUI();
 
         JOptionPane.showMessageDialog(null,
-                "Znaleziono mikrokontrolerów: " + ucList.size(),
+                "Znaleziono modułów: " + cmList.size(),
                 "Wynik wyszukiwania",
                 JOptionPane.INFORMATION_MESSAGE);
 
@@ -90,7 +90,7 @@ public class MainFrame extends JFrame {
 
 
         try (Reader reader = new URLReader(MainFrame.class.getResource("/model_rules.json"))) {
-            modelRules = gson.fromJson(reader, new TypeToken<List<MicroControllerModelRule>>() {
+            modelRules = gson.fromJson(reader, new TypeToken<List<CModuleModelRule>>() {
             }.getType());
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,21 +102,21 @@ public class MainFrame extends JFrame {
         System.out.println("Start expert's stuff");
 
         questionScreen = new QuestionScreen();
-        ucModelGenerator = new UCModelGenerator(questions, modelRules);
+        cmModelGenerator = new CModuleModelGenerator(questions, modelRules);
 
         questionScreen.setQuestionListener((nextQuestion, selectedQuestion) -> {
-            ucModelGenerator.setAnswerForLastQuestion(selectedQuestion);
+            cmModelGenerator.setAnswerForLastQuestion(selectedQuestion);
             IQuestionModel question;
             if (nextQuestion) {
-                question = ucModelGenerator.getNextQuestion();
+                question = cmModelGenerator.getNextQuestion();
                 if (question != null) {
                     questionScreen.setQuestionModel(question);
                 } else {
-                    searchUC(ucModelGenerator.generateModel());
+                    searchCM(cmModelGenerator.generateModel());
                 }
 
             } else {
-                question = ucModelGenerator.getPreviousQuestion();
+                question = cmModelGenerator.getPreviousQuestion();
                 if (question != null) {
                     questionScreen.setQuestionModel(question);
                 }else {
@@ -127,7 +127,7 @@ public class MainFrame extends JFrame {
         });
 
         questionsPanel = questionScreen.getQuestionPanel();
-        questionScreen.setQuestionModel(ucModelGenerator.getNextQuestion());
+        questionScreen.setQuestionModel(cmModelGenerator.getNextQuestion());
         setContentPane(questionsPanel);
     }
 }
