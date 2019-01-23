@@ -44,7 +44,7 @@ public class StartScreen {
         Font label1Font = this.$$$getFont$$$(null, Font.BOLD, 26, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
         label1.setText("System Ekspertowy");
-        panel1.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         startPanel.add(panel2, BorderLayout.SOUTH);
@@ -55,11 +55,11 @@ public class StartScreen {
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(10, 10, 10, 10), -1, -1));
         startPanel.add(panel3, BorderLayout.CENTER);
         aboutText = new JTextArea();
-        aboutText.setBackground(new Color(-855310));
+        aboutText.setBackground(new Color(-1));
         aboutText.setColumns(0);
         aboutText.setEditable(false);
         aboutText.setLineWrap(true);
-        aboutText.setText("Celem projektu było stworzenie systemu wspomagającego projektanta w wyborze mikrokontrolera do budowanego układu elektronicznego. Ze względu na mnogość dostępnych modeli mikrokontrolerów oraz zróżnicowane wymagania aplikacji, wybór ten nie jest trywialny i wymaga rozważenia wielu czynników. Wybór odpowiedniego układu przeprowadzany jest na podstawie opisu wymagań względem końcowego urządzenia, wielkości serii itd.");
+        aboutText.setText("System wspomaga w doborze układu komunikacji w projekcie elektronicznym.");
         aboutText.setWrapStyleWord(true);
         panel3.add(aboutText, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
     }

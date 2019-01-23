@@ -1,5 +1,5 @@
-import UCdatabase.Database;
-import UCdatabase.MicroControllerEntity;
+import CMdatabase.Database;
+import CMdatabase.CModuleEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jdk.nashorn.api.scripting.URLReader;
@@ -20,9 +20,9 @@ public class MainFrame extends JFrame {
     private ResultsScreen resultsScreen;
 
     private List<IQuestionModel> questions;
-    private List<MicroControllerModelRule> modelRules;
+    private List<CModuleModelRule> modelRules;
 
-    private UCModelGenerator ucModelGenerator;
+    private CModuleModelGenerator ucModelGenerator;
 
     public MainFrame(String title) {
         super(title);
@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
         setContentPane(startPanel);
     }
 
-    private void searchUC(MicroControllerModel ucModel) {
+    private void searchUC(CModuleModel ucModel) {
         System.out.println(ucModel.toString());
         Database db = new Database();
         try {
@@ -45,9 +45,9 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(null, e.toString(), "Błąd bazy danych", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-        UCModelMatcher matcher = new UCModelMatcher(db.getConnection());
+        CMModelMatcher matcher = new CMModelMatcher(db.getConnection());
 
-        List<MicroControllerEntity> ucList = matcher.matchUCModel(ucModel);
+        List<CModuleEntity> ucList = matcher.matchCMModel(ucModel);
 
         System.out.println(ucList);
 
@@ -90,7 +90,7 @@ public class MainFrame extends JFrame {
 
 
         try (Reader reader = new URLReader(MainFrame.class.getResource("/model_rules.json"))) {
-            modelRules = gson.fromJson(reader, new TypeToken<List<MicroControllerModelRule>>() {
+            modelRules = gson.fromJson(reader, new TypeToken<List<CModuleModelRule>>() {
             }.getType());
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,7 +102,7 @@ public class MainFrame extends JFrame {
         System.out.println("Start expert's stuff");
 
         questionScreen = new QuestionScreen();
-        ucModelGenerator = new UCModelGenerator(questions, modelRules);
+        ucModelGenerator = new CModuleModelGenerator(questions, modelRules);
 
         questionScreen.setQuestionListener((nextQuestion, selectedQuestion) -> {
             ucModelGenerator.setAnswerForLastQuestion(selectedQuestion);

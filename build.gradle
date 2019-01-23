@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'wyskocki.karol'
+group 'wisniewska.karolina'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -23,7 +23,7 @@ jar {
     }
     doLast {
         copy {
-            from 'data/ucBase.csv'
+            from 'data/cmBase.csv'
             into "build/libs/data"
         }
 

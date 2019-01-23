@@ -1,7 +1,8 @@
-package UCdatabase;
+package CMdatabase;
 
-public class MicroControllerEntity {
+public class CModuleEntity {
 
+    //TODO rewrite this file
     private String manufacturer;
     private String product_name;
     private float price;
@@ -39,13 +40,13 @@ public class MicroControllerEntity {
     private int package_bga;
 
 
-    public MicroControllerEntity(String manufacturer, String product_name, float price, String core, int flash_kb,
-                                 int sram_bytes, int pin_count, int cpu_speed, int comparators, int ADC_input,
-                                 int ADC_resolution, int DAC_output, int DAC_resolution, int counters, int UART, int SPI,
-                                 int I2C, int CAN, int USB, int temp_min, int temp_max, int voltage_min, int voltage_max,
-                                 float power_consumption, int FPU, int graphics_support, int external_ram_support,
-                                 String parallel_interfaces, String serial_interfaces, String general_description,
-                                 String packages, int package_tht, int package_easy, int package_hard, int package_bga) {
+    public CModuleEntity(String manufacturer, String product_name, float price, String core, int flash_kb,
+                         int sram_bytes, int pin_count, int cpu_speed, int comparators, int ADC_input,
+                         int ADC_resolution, int DAC_output, int DAC_resolution, int counters, int UART, int SPI,
+                         int I2C, int CAN, int USB, int temp_min, int temp_max, int voltage_min, int voltage_max,
+                         float power_consumption, int FPU, int graphics_support, int external_ram_support,
+                         String parallel_interfaces, String serial_interfaces, String general_description,
+                         String packages, int package_tht, int package_easy, int package_hard, int package_bga) {
 
         this.manufacturer = manufacturer;
         this.product_name = product_name;
@@ -87,7 +88,7 @@ public class MicroControllerEntity {
 
     @Override
     public String toString() {
-        return "MicroControllerEntity{" +
+        return "CModuleEntity{" +
                 "manufacturer='" + manufacturer + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", price=" + price +

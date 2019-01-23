@@ -1,25 +1,26 @@
-package UCdatabase;
+package CMdatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UCDatabaseDAO {
+//TODO change this file for new model
+public class CMatabaseDAO {
 
 
     private Connection connection;
 
-    public UCDatabaseDAO(Connection connection) {
+    public CMatabaseDAO(Connection connection) {
         this.connection = connection;
     }
 
 
-    public int insertAll(Collection<MicroControllerEntity> ucCollection) {
+    public int insertAll(Collection<CModuleEntity> ucCollection) {
         int[] results = new int[0];
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO 'uc_database'" +
+                    "INSERT INTO 'cm_database'" +
                             "('manufacturer','product_name','price','core','flash_kb','sram_bytes','pin_count'," +
                             "'cpu_speed','comparators','ADC_input','ADC_resolution','DAC_output','DAC_resolution'," +
                             "'counters','UART','SPI','I2C','CAN','USB','temp_min','temp_max','voltage_min'," +
@@ -28,7 +29,7 @@ public class UCDatabaseDAO {
                             "'package_easy','package_hard','package_bga') " +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
             );
-            for (MicroControllerEntity uc : ucCollection) {
+            for (CModuleEntity uc : ucCollection) {
                 statement.setString(1, uc.getManufacturer().toUpperCase());
                 statement.setString(2, uc.getProduct_name());
                 statement.setFloat(3, uc.getPrice());
@@ -82,7 +83,7 @@ public class UCDatabaseDAO {
 
     public int tableSize() {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) as row_numbers FROM uc_database");
+            PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) as row_numbers FROM cm_database");
             statement.execute();
             return statement.getResultSet().getInt("row_numbers");
         } catch (SQLException e) {
@@ -91,12 +92,12 @@ public class UCDatabaseDAO {
         return 0;
     }
 
-    public static List<MicroControllerEntity> rowsToObject(ResultSet resultSet) {
-        List<MicroControllerEntity> ucList = new ArrayList<>();
+    public static List<CModuleEntity> rowsToObject(ResultSet resultSet) {
+        List<CModuleEntity> ucList = new ArrayList<>();
 
         try {
             while (resultSet.next()) {
-                ucList.add(new MicroControllerEntity(
+                ucList.add(new CModuleEntity(
                         resultSet.getString("manufacturer"),
                         resultSet.getString("product_name"),
                         resultSet.getFloat("price"),

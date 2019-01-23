@@ -1,10 +1,10 @@
-package UCdatabase;
+package CMdatabase;
 
 import java.sql.*;
 
 public class Database {
 
-    private String connectionString = "jdbc:sqlite:data/ucDatabase.db";
+    private String connectionString = "jdbc:sqlite:data/cmDatabase.db";
     private Connection connection;
 
     public void init() throws SQLException {
@@ -28,7 +28,7 @@ public class Database {
     }
 
     private void createTable() throws SQLException {
-        String createTableStatement = "CREATE TABLE IF NOT EXISTS 'uc_database' (" +
+        String createTableStatement = "CREATE TABLE IF NOT EXISTS 'cm_database' (" +
                 "'id'	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE," +
                 "'manufacturer'	TEXT," +
                 "'product_name'	TEXT," +

@@ -1,6 +1,5 @@
-package UCdatabase;
+package CMdatabase;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,6 +8,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class CSVloader {
+    //TODO change headers from csv
     public static final String MANUFACTURER = "manufacturer";
     public static final String PRODUCT_NAME = "product_name";
     public static final String PRICE = "price";
@@ -46,8 +46,8 @@ public class CSVloader {
     public static final String PACKAGE_BGA = "package_bga";
 
 
-    public static List<MicroControllerEntity> loadCSV(Path filePath) throws IOException {
-        List<MicroControllerEntity> ucList = new ArrayList<>();
+    public static List<CModuleEntity> loadCSV(Path filePath) throws IOException {
+        List<CModuleEntity> cmList = new ArrayList<>();
 
         Map<String, Integer> headers;
         Stream<String> lines = Files.lines(filePath);
@@ -57,7 +57,7 @@ public class CSVloader {
         iterator.forEachRemaining(s -> {
 
             String[] fields = fixSplitForStringWithComa(s.split(","));
-            MicroControllerEntity ucEntity = new MicroControllerEntity(
+            CModuleEntity ucEntity = new CModuleEntity(
                     fields[headers.get(MANUFACTURER)],
                     fields[headers.get(PRODUCT_NAME)],
                     Float.valueOf(fields[headers.get(PRICE)]),
@@ -94,9 +94,9 @@ public class CSVloader {
                     Integer.valueOf(fields[headers.get(PACKAGE_HARD)]),
                     Integer.valueOf(fields[headers.get(PACKAGE_BGA)])
             );
-            ucList.add(ucEntity);
+            cmList.add(ucEntity);
         });
-        return ucList;
+        return cmList;
     }
 
     private static Map<String, Integer> parseHeader(String line) {
@@ -136,8 +136,8 @@ public class CSVloader {
 
     public static void main(String[] args) throws IOException {
 
-        Path filePath = Paths.get("pre-data/ucBase.csv");
-        List<MicroControllerEntity> ucList = loadCSV(filePath);
+        Path filePath = Paths.get("data/cmBase.csv");
+        List<CModuleEntity> ucList = loadCSV(filePath);
         System.out.println(ucList);
 
     }
