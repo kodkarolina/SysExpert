@@ -1,0 +1,291 @@
+[
+  {
+    "questionID" : 0,
+    "question" : "Czy Twój projekt jest komercyjny czy hobbystyczny?",
+    "answers" : [
+      "komercyjny",
+      "hobbystyczny"
+    ],
+    "nextQuestionIds" : [1, 2]
+  },
+  {
+    "questionID" : 1,
+    "question" : "Określ typ produkcji",
+    "answers" : [
+      "produkcja małoseryjna (kilka, kilkanaście urządzeń)",
+      "produkcja wielkoseryjna (setki sztuk)"
+    ],
+    "nextQuestionIds" : [2, 2]
+  },
+  {
+    "questionID" : 2,
+    "question" : "Ile potrzebujesz wszystkich pinów I/O (w tym tych do funkcji analogowych)?",
+    "answers" : [
+      "5 lub mniej",
+      "więcej niż 5, ale mniej niż 32",
+      "więcej niż 32, ale mniej niż 75",
+      "więcej niż 80"
+    ],
+    "nextQuestionIds" : [3, 3, 3, 3]
+  },
+  {
+    "questionID" : 3,
+    "question" : "Czy w projekcie urządzenia możesz wykorzystać dodatkowe układy wejścia-wyjścia, jak np. expandery portów, rejestry przesuwne itd.?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [4, 4]
+  },
+  {
+    "questionID" : 4,
+    "question" : "Ilu układów licznikowych będziesz potrzebować?",
+    "answers" : [
+      "0",
+      "1 lub 2",
+      "3",
+      "więcej niż 3"
+    ],
+    "nextQuestionIds" : [5, 5, 5, 5]
+  },
+  {
+    "questionID" : 5,
+    "question" : "Ile kanałów ADC potrzebujesz w swoim projekcie?",
+    "answers" : [
+      "nie potrzebuję wcale",
+      "nie więcej niż 8",
+      "nie więcej niż 10",
+      "nie więcej niż 16",
+      "więcej niż 16"
+    ],
+    "nextQuestionIds" : [8, 7, 7, 7, 7]
+  },
+  {
+    "questionID" : 7,
+    "question" : "Jaka jest wymagana rozdzielczość ADC?",
+    "answers" : [
+      "8 bit",
+      "10 bit",
+      "12 bit"
+    ],
+    "nextQuestionIds" : [8, 8, 8]
+  },
+  {
+    "questionID" : 8,
+    "question" : "Ile kanałów DAC będzie potrzebne?",
+    "answers" : [
+      "nie potrzebuję wcale",
+      "1",
+      "więcej niż 2"
+    ],
+    "nextQuestionIds" : [10, 9, 9]
+  },
+  {
+    "questionID" : 9,
+    "question" : "Jaka jest wymagana minimalna rozdzielczość DAC?",
+    "answers" : [
+      "Mniej niż 8 bit",
+      "8 bit",
+      "10 bit",
+      "12 bit"
+    ],
+    "nextQuestionIds" : [10, 10, 10, 10]
+  },
+  {
+    "questionID" : 10,
+    "question" : "W jaki sposób głównie będzie zasilany Twój projekt?",
+    "answers" : [
+      "z sieci (zasilanie nie stanowi problemu)",
+      "zasilanie bateryjne/akumulatorowe (konieczność oszczędzania energii)"
+    ],
+    "nextQuestionIds" : [11, 11]
+  },
+  {
+    "questionID" : 11,
+    "question" : "Jakie będzie najwyższe napięcie zasilające mikrokontroler?",
+    "answers" : [
+      "<= 2.4 V",
+      "<= 3.3 V",
+      "<= 5 V"
+    ],
+    "nextQuestionIds" : [12, 12, 12]
+  },
+  {
+    "questionID" : 12,
+    "question" : "Jaką minimalną wartość może przybrać napięcie zasilania?",
+    "answers" : [
+      "<= 1.8 V",
+      "<= 3.0 V",
+      "<= 4.5 V"
+    ],
+    "nextQuestionIds" : [13, 13, 13]
+  },
+  {
+    "questionID" : 13,
+    "question" : "Czy planujesz używać systemu operacyjnego?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [14, 14]
+  },
+  {
+    "questionID" : 14,
+    "question" : "Czy mikrokontroler będzie przeprowadzał dużo obciążających obliczeń?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [15, 15]
+  },
+  {
+    "questionID" : 15,
+    "question" : "Czy mikrokontoler będzie przeprowadzał dużo obliczeń zmiennoprzecinkowych?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [17, 17]
+  },
+  {
+    "questionID" : 17,
+    "question" : "Czy mikrokontroler będzie obsługiwał wyświetlacz graficzny?",
+    "answers" : [
+      "nie",
+      "tak, lecz będzie to prosty, statyczny interfejs graficzny",
+      "rozbudowany interfejs użytkownika"
+    ],
+    "nextQuestionIds" : [18, 18, 18]
+  },
+  {
+    "questionID" : 18,
+    "question" : "Jakie będzie szacunkowe maksymalne zużycie pamięci RAM w Twojej aplikacji? (nie wliczając ewentualnego zewnętrznego RAMu)",
+    "answers" : [
+      "nie więcej niż 1 Kb",
+      "nie więcej niż 4 Kb",
+      "nie więcej niż 32 Kb",
+      "nie więcej niż 64 Kb",
+      "więcej niż 64 Kb"
+    ],
+    "nextQuestionIds" : [19, 19, 19, 19, 19]
+  },
+  {
+    "questionID" : 19,
+    "question" : "Czy przewidujesz użycie zewnętrznego RAMu?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [20, 20]
+  },
+  {
+    "questionID" : 20,
+    "question" : "Określ jak dużo maksymalnie potrzebujesz pamięci FLASH.",
+    "answers" : [
+      "nie więcej niż 8 Kb",
+      "nie więcej niż 64 Kb",
+      "nie więcej niż 256 Kb",
+      "więcej niż 256 Kb"
+    ],
+    "nextQuestionIds" : [22, 22, 22, 22]
+  },
+  {
+    "questionID" : 22,
+    "question" : "Czy w projekcie potrzebujesz interfejsu UART? Ilu?",
+    "answers" : [
+      "0",
+      "1",
+      "2",
+      "więcej"
+    ],
+    "nextQuestionIds" : [23, 23, 23, 23]
+  },
+  {
+    "questionID" : 23,
+    "question" : "Czy potrzebujesz interfejsu I2C? Ile szyn?",
+    "answers" : [
+      "0",
+      "1",
+      "2",
+      "więcej"
+    ],
+    "nextQuestionIds" : [24, 24, 24, 24]
+  },
+  {
+    "questionID" : 24,
+    "question" : "Czy potrzebujesz interfejsu CAN? Ilu?",
+    "answers" : [
+      "0",
+      "1",
+      "2",
+      "więcej"
+    ],
+    "nextQuestionIds" : [25, 25, 25, 25]
+  },
+  {
+    "questionID" : 25,
+    "question" : "Czy potrzebujesz interfejsu SPI? Ilu?",
+    "answers" : [
+      "0",
+      "1",
+      "2",
+      "więcej"
+    ],
+    "nextQuestionIds" : [26, 26, 26, 26]
+  },
+  {
+    "questionID" : 26,
+    "question" : "Czy potrzebujesz USB?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [27, 27]
+  },
+  {
+    "questionID" : 27,
+    "question" : "Preferujesz montaż powierzchniowy czy przewlekany?",
+    "answers" : [
+      "powierzchniowy",
+      "przewlekany"
+    ],
+    "nextQuestionIds" : [28, 29]
+  },
+  {
+    "questionID" : 28,
+    "question" : "Czy proces technologiczny umożliwia Ci wykorzystanie elementów w obudowach takich jak BGA czy QFN?",
+    "answers" : [
+      "mogę używać tylko układów w prostych obudowach SMD",
+      "obudowy QFN nie stanowią problemu",
+      "obudowy typu BGA mogą być używane bez przeszkód"
+    ],
+    "nextQuestionIds" : [29, 29, 29]
+  },
+  {
+    "questionID" : 29,
+    "question" : "Czy posiadasz doświadczenie w programowaniu mikrokontrolerów firmy Atmel?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [30, 30]
+  },
+  {
+    "questionID" : 30,
+    "question" : "Czy posiadasz doświadczenie w programowaniu mikrokontrolerów firmy STM?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [31, 31]
+  },
+  {
+    "questionID" : 31,
+    "question" : "Czy w ramach realizowanego projektu możesz pozwolić sobie na naukę programowania mikrokontrolerów produkowanych przez firmy, z którymi dotychczas nie miałeś doświadczenia?",
+    "answers" : [
+      "tak",
+      "nie"
+    ],
+    "nextQuestionIds" : [-1, -1]
+  }
+]

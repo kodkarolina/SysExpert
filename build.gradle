@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group 'wyskocki.karol'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest{
+        attributes 'Main-Class': 'Main'
+    }
+    doLast {
+        copy {
+            from 'data/ucBase.csv'
+            into "build/libs/data"
+        }
+
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
+    compile 'com.google.code.gson:gson:2.8.4'
+    
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
+
+}
