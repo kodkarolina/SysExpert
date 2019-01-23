@@ -3,19 +3,19 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-public class UCModelGenerator implements IFormController {
+public class CModuleModelGenerator implements IFormController {
 
-    private MicroControllerModel ucModel;
+    private CModuleModel cmModel;
 
     //"questions"
     private HashMap<Integer, IQuestionModel> questions;
     private Stack<Integer> usedQuestionIDs;
 
-    private HashMap<Integer, MicroControllerModelRule> modelRules;
+    private HashMap<Integer, CModuleModelRule> modelRules;
 
 
-    public UCModelGenerator(List<IQuestionModel> questions, List<MicroControllerModelRule> modelRules){
-        ucModel = new MicroControllerModel();
+    public CModuleModelGenerator(List<IQuestionModel> questions, List<CModuleModelRule> modelRules){
+        cmModel = new CModuleModel();
 
         this.questions = new HashMap<>();
         for (IQuestionModel question:questions){
@@ -24,19 +24,19 @@ public class UCModelGenerator implements IFormController {
 
         this.usedQuestionIDs = new Stack<>();
 
-        assert validateModelRules(modelRules, ucModel);
+        assert validateModelRules(modelRules, cmModel);
         this.modelRules = new HashMap<>();
-        for (MicroControllerModelRule rule:modelRules) {
+        for (CModuleModelRule rule:modelRules) {
             this.modelRules.put(rule.getRule_id(), rule);
         }
     }
 
 
-    private boolean validateModelRules(List<MicroControllerModelRule> modelRules, MicroControllerModel model){
+    private boolean validateModelRules(List<CModuleModelRule> modelRules, CModuleModel model){
         Set<String> flags = model.parametersFlags.keySet();
         Set<String> values = model.parametersValues.keySet();
 
-        for (MicroControllerModelRule rule:modelRules) {
+        for (CModuleModelRule rule:modelRules) {
             Set<String> properties = rule.getRules().keySet();
             for (String property:properties) {
                 if (!(flags.contains(property) || values.contains(property))){
@@ -49,11 +49,11 @@ public class UCModelGenerator implements IFormController {
     }
 
 
-    public MicroControllerModel generateModel(){
+    public CModuleModel generateModel(){
 
         for (Integer questionID:usedQuestionIDs) {
 
-            MicroControllerModelRule rule = modelRules.get(questionID);
+            CModuleModelRule rule = modelRules.get(questionID);
             if (rule == null) continue;
             IQuestionModel question = questions.get(questionID);
 
@@ -63,15 +63,15 @@ public class UCModelGenerator implements IFormController {
                     continue;
                 }
 
-                if (ucModel.parametersValues.keySet().contains(property)) {
-                    ucModel.parametersValues.put(property, ((Double) rule.getRules().get(property)[question.selectedAnswer()]).intValue());
+                if (cmModel.parametersValues.keySet().contains(property)) {
+                    cmModel.parametersValues.put(property, ((Double) rule.getRules().get(property)[question.selectedAnswer()]).intValue());
                 }
-                if (ucModel.parametersFlags.keySet().contains(property)) {
-                    ucModel.parametersFlags.put(property, (Boolean) rule.getRules().get(property)[question.selectedAnswer()]);
+                if (cmModel.parametersFlags.keySet().contains(property)) {
+                    cmModel.parametersFlags.put(property, (Boolean) rule.getRules().get(property)[question.selectedAnswer()]);
                 }
             }
         }
-        return ucModel;
+        return cmModel;
     }
 
 

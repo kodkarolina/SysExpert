@@ -1,7 +1,7 @@
-import UCdatabase.CSVloader;
-import UCdatabase.Database;
-import UCdatabase.MicroControllerEntity;
-import UCdatabase.UCDatabaseDAO;
+import CMdatabase.CModuleEntity;
+import CMdatabase.CSVloader;
+import CMdatabase.Database;
+import CMdatabase.CMdatabaseDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,10 +50,10 @@ public class Main {
             try {
                 Database database = new Database();
                 database.init();
-                UCDatabaseDAO ucDao = new UCDatabaseDAO(database.getConnection());
-                if (ucDao.tableSize() == 0) {
-                    List<MicroControllerEntity> list = CSVloader.loadCSV(Paths.get("./data/ucBase.csv"));
-                    int addedUC = ucDao.insertAll(list);
+                CMdatabaseDAO cmDao = new CMdatabaseDAO(database.getConnection());
+                if (cmDao.tableSize() == 0) {
+                    List<CModuleEntity> list = CSVloader.loadCSV(Paths.get("./data/cmBase.csv"));
+                    int addedUC = cmDao.insertAll(list);
                     System.out.println("added do db: " + addedUC);
                 }
                 database.closeDB();
