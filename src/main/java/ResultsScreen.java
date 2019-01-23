@@ -79,34 +79,35 @@ public class ResultsScreen {
     }
 
     private void showDetails(CModuleEntity microController) {
-        packageField.setText(microController.getPackages());
-        productField.setText(microController.getProduct_name());
-        producentField.setText(microController.getManufacturer());
-        descriptionField.setText(microController.getGeneral_description());
-        priceField.setText(String.valueOf(microController.getPrice()));
-        coreField.setText(microController.getCore());
-        cpuSpeedField.setText(microController.getCpu_speed() + " MHz");
-        flashField.setText(microController.getFlash_kb() + " kB");
-        ramField.setText(microController.getSram_bytes() >= 1024 ? microController.getSram_bytes() / 1024 + " kB" : microController.getSram_bytes() + " B");
-        pinCountField.setText(String.valueOf(microController.getPin_count()));
-        comparatorsField.setText(String.valueOf(microController.getComparators()));
-        adcOutputField.setText(String.valueOf(microController.getADC_input()));
-        adcResField.setText(microController.getADC_resolution() + " bit");
-        dacInputField.setText(String.valueOf(microController.getDAC_output()));
-        dacResolutionField.setText(microController.getDAC_resolution() + " bit");
-        countersField.setText(String.valueOf(microController.getCounters()));
-        uartField.setText(String.valueOf(microController.getUART()));
-        spiField.setText(String.valueOf(microController.getSPI()));
-        i2cField.setText(String.valueOf(microController.getI2C()));
-        canField.setText(String.valueOf(microController.getCAN()));
-        usbField.setText(microController.getUSB() > 0 ? "jest" : "brak");
-        tempField.setText("od " + microController.getTemp_min() + "°C do " + microController.getTemp_max() + "°C");
-        voltageField.setText(String.format("od %.1fV do %.1fV", microController.getVoltage_min() / 1000f, microController.getVoltage_max() / 1000f));
-        powerConsumptionField.setText(microController.getPower_consumption() + "uA");
-        fpuField.setText(microController.getFPU() > 0 ? "jest" : "brak");
-        externalRamField.setText(microController.getExternal_ram_support() > 0 ? "jest" : "brak");
-        paralelField.setText(microController.getParallel_interfaces());
-        serialField.setText(microController.getSerial_interfaces());
+        //TODO change result screen - details
+//        packageField.setText(microController.getPackages());
+//        productField.setText(microController.getProduct_name());
+//        producentField.setText(microController.getManufacturer());
+//        descriptionField.setText(microController.getGeneral_description());
+//        priceField.setText(String.valueOf(microController.getPrice()));
+//        coreField.setText(microController.getCore());
+//        cpuSpeedField.setText(microController.getCpu_speed() + " MHz");
+//        flashField.setText(microController.getFlash_kb() + " kB");
+//        ramField.setText(microController.getSram_bytes() >= 1024 ? microController.getSram_bytes() / 1024 + " kB" : microController.getSram_bytes() + " B");
+//        pinCountField.setText(String.valueOf(microController.getPin_count()));
+//        comparatorsField.setText(String.valueOf(microController.getComparators()));
+//        adcOutputField.setText(String.valueOf(microController.getADC_input()));
+//        adcResField.setText(microController.getADC_resolution() + " bit");
+//        dacInputField.setText(String.valueOf(microController.getDAC_output()));
+//        dacResolutionField.setText(microController.getDAC_resolution() + " bit");
+//        countersField.setText(String.valueOf(microController.getCounters()));
+//        uartField.setText(String.valueOf(microController.getUART()));
+//        spiField.setText(String.valueOf(microController.getSPI()));
+//        i2cField.setText(String.valueOf(microController.getI2C()));
+//        canField.setText(String.valueOf(microController.getCAN()));
+//        usbField.setText(microController.getUSB() > 0 ? "jest" : "brak");
+//        tempField.setText("od " + microController.getTemp_min() + "°C do " + microController.getTemp_max() + "°C");
+//        voltageField.setText(String.format("od %.1fV do %.1fV", microController.getVoltage_min() / 1000f, microController.getVoltage_max() / 1000f));
+//        powerConsumptionField.setText(microController.getPower_consumption() + "uA");
+//        fpuField.setText(microController.getFPU() > 0 ? "jest" : "brak");
+//        externalRamField.setText(microController.getExternal_ram_support() > 0 ? "jest" : "brak");
+//        paralelField.setText(microController.getParallel_interfaces());
+//        serialField.setText(microController.getSerial_interfaces());
     }
 
     public JPanel getResultPanel() {
@@ -378,20 +379,20 @@ public class ResultsScreen {
     }
 
     private class UCListModel implements ListModel {
-        List<CModuleEntity> ucList;
+        List<CModuleEntity> cmList;
 
-        UCListModel(List<CModuleEntity> ucList) {
-            this.ucList = ucList;
+        UCListModel(List<CModuleEntity> cmList) {
+            this.cmList = cmList;
         }
 
         @Override
         public int getSize() {
-            return ucList.size();
+            return cmList.size();
         }
 
         @Override
         public Object getElementAt(int i) {
-            return ucList.get(i).getProduct_name();
+            return cmList.get(i).getName();
         }
 
         @Override

@@ -1,7 +1,7 @@
 import CMdatabase.CModuleEntity;
 import CMdatabase.CSVloader;
 import CMdatabase.Database;
-import CMdatabase.CMatabaseDAO;
+import CMdatabase.CMdatabaseDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +50,7 @@ public class Main {
             try {
                 Database database = new Database();
                 database.init();
-                CMatabaseDAO ucDao = new CMatabaseDAO(database.getConnection());
+                CMdatabaseDAO ucDao = new CMdatabaseDAO(database.getConnection());
                 if (ucDao.tableSize() == 0) {
                     List<CModuleEntity> list = CSVloader.loadCSV(Paths.get("./data/cmBase.csv"));
                     int addedUC = ucDao.insertAll(list);
