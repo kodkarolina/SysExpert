@@ -50,10 +50,10 @@ public class Main {
             try {
                 Database database = new Database();
                 database.init();
-                CMdatabaseDAO ucDao = new CMdatabaseDAO(database.getConnection());
-                if (ucDao.tableSize() == 0) {
+                CMdatabaseDAO cmDao = new CMdatabaseDAO(database.getConnection());
+                if (cmDao.tableSize() == 0) {
                     List<CModuleEntity> list = CSVloader.loadCSV(Paths.get("./data/cmBase.csv"));
-                    int addedUC = ucDao.insertAll(list);
+                    int addedUC = cmDao.insertAll(list);
                     System.out.println("added do db: " + addedUC);
                 }
                 database.closeDB();

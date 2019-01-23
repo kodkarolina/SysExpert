@@ -15,7 +15,7 @@ public class CMdatabaseDAO {
     }
 
 
-    public int insertAll(Collection<CModuleEntity> ucCollection) {
+    public int insertAll(Collection<CModuleEntity> cmCollection) {
         int[] results = new int[0];
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -26,28 +26,28 @@ public class CMdatabaseDAO {
                             "'encryption','price','arduino_support') " +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
             );
-            for (CModuleEntity uc : ucCollection) {
-                statement.setString(1, uc.getName());
-                statement.setInt(2, uc.getBluetooth());
-                statement.setInt(3, uc.getWifi());
-                statement.setInt(4, uc.getRadio());
-                statement.setInt(5, uc.getRange());
-                statement.setInt(6, uc.getVoltage_min());
-                statement.setInt(7, uc.getVoltage_max());
-                statement.setInt(8, uc.getPower_saving());
-                statement.setInt(9, uc.getConnection_direction());
-                statement.setInt(10, uc.getUART());
-                statement.setInt(11, uc.getSPI());
-                statement.setInt(12, uc.getI2C());
-                statement.setInt(13, uc.getUSB());
-                statement.setInt(14, uc.getProgrammable());
-                statement.setInt(15, uc.getModule_package());
-                statement.setFloat(16, uc.getCommunicationSpeed());
-                statement.setInt(17, uc.getCurrent_consumption());
-                statement.setFloat(18, uc.getWork_freq());
-                statement.setInt(19, uc.getEncryption());
-                statement.setFloat(20, uc.getPrice());
-                statement.setInt(21, uc.getArduino_support());
+            for (CModuleEntity cm : cmCollection) {
+                statement.setString(1, cm.getName());
+                statement.setInt(2, cm.getBluetooth());
+                statement.setInt(3, cm.getWifi());
+                statement.setInt(4, cm.getRadio());
+                statement.setInt(5, cm.getRange());
+                statement.setInt(6, cm.getVoltage_min());
+                statement.setInt(7, cm.getVoltage_max());
+                statement.setInt(8, cm.getPower_saving());
+                statement.setInt(9, cm.getConnection_direction());
+                statement.setInt(10, cm.getUART());
+                statement.setInt(11, cm.getSPI());
+                statement.setInt(12, cm.getI2C());
+                statement.setInt(13, cm.getUSB());
+                statement.setInt(14, cm.getProgrammable());
+                statement.setInt(15, cm.getModule_package());
+                statement.setFloat(16, cm.getCommunicationSpeed());
+                statement.setInt(17, cm.getCurrent_consumption());
+                statement.setFloat(18, cm.getWork_freq());
+                statement.setInt(19, cm.getEncryption());
+                statement.setFloat(20, cm.getPrice());
+                statement.setInt(21, cm.getArduino_support());
                 statement.addBatch();
             }
             results = statement.executeBatch();
@@ -76,11 +76,11 @@ public class CMdatabaseDAO {
     }
 
     public static List<CModuleEntity> rowsToObject(ResultSet resultSet) {
-        List<CModuleEntity> ucList = new ArrayList<>();
+        List<CModuleEntity> cmList = new ArrayList<>();
 
         try {
             while (resultSet.next()) {
-                ucList.add(new CModuleEntity(
+                cmList.add(new CModuleEntity(
                         resultSet.getString("name"),
                         resultSet.getInt("bluetooth"),
                         resultSet.getInt("wifi"),
@@ -107,7 +107,7 @@ public class CMdatabaseDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ucList;
+        return cmList;
     }
 
 }

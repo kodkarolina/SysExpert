@@ -53,7 +53,7 @@ public class Database {
                 "'arduino_support'	INTEGER);";
 
         Statement statement = connection.createStatement();
-        statement.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='uc_database';");
+        statement.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='cm_database';");
         if (!statement.getResultSet().next()) {
             statement.execute(createTableStatement);
             System.out.println("Potato");
