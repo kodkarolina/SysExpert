@@ -32,7 +32,7 @@ public class Database {
                 "'id'	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE," +
                 "'name'	TEXT," +
                 "'bluetooth'	INTEGER," +
-                "'wifi'	INTEGER`," +
+                "'wifi'	INTEGER," +
                 "'radio'	INTEGER," +
                 "'range'	INTEGER," +
                 "'voltage_min'	INTEGER," +
@@ -45,7 +45,7 @@ public class Database {
                 "'USB'	INTEGER," +
                 "'programmable'	INTEGER," +
                 "'package'	INTEGER," +
-                "'communication_speed', REAL, " +
+                "'communication_speed' REAL, " +
                 "'power_consumption'	INTEGER," +
                 "'work_freq'	REAL," +
                 "'encryption'	INTEGER," +

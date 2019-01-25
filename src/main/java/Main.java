@@ -23,11 +23,11 @@ public class Main {
 
     private static void runGUI() {
 
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         PreparingDBInfo preparingDialog = new PreparingDBInfo();
         preparingDialog.setVisible(true);
