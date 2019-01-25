@@ -20,7 +20,7 @@
   {
     "rule_id": 3,
     "rules" : {
-      "optimal_voltage" : [3000, 5000, 9000, null]
+      "optimal_voltage" : [3000, 5000, 9000, 1]
     }
   },
   {
@@ -86,94 +86,7 @@
   {
     "rule_id": 15,
     "rules" : {
-      "bluetooth" : [0, 1, 2, 3, 4],
-      "fpu" : [true, false]
-    }
-  },
-  {
-    "rule_id": 17,
-    "rules" : {
-      "high_performance" : [null, null, true],
-      "graphics_features" : [false, false, true]
-    }
-  },
-  {
-    "rule_id": 18,
-    "rules" : {
-      "ram_size" : [0, 1000, 4000, 32000, 64000]
-    }
-  },
-  {
-    "rule_id": 19,
-    "rules" : {
-      "external_ram" : [true, false]
-    }
-  },
-  {
-    "rule_id": 20,
-    "rules" : {
-      "flash_size" : [0, 8, 64, 256]
-    }
-  },
-  {
-    "rule_id": 22,
-    "rules" : {
-      "uart_interfaces" : [0, 1, 2, 3]
-    }
-  },
-  {
-    "rule_id": 23,
-    "rules" : {
-      "i2c_interfaces" : [0, 1, 2, 3]
-    }
-  },
-  {
-    "rule_id": 24,
-    "rules" : {
-      "can_interfaces" : [0, 1, 2, 3]
-    }
-  },
-  {
-    "rule_id": 25,
-    "rules" : {
-      "spi_interfaces" : [0, 1, 2, 3]
-    }
-  },
-  {
-    "rule_id": 26,
-    "rules" : {
-      "usb_interfaces" : [true, false]
-    }
-  },
-  {
-    "rule_id": 27,
-    "rules" : {
-      "package" : [null, 1]
-    }
-  },
-  {
-    "rule_id": 28,
-    "rules" : {
-      "package" : [2, 4, 8]
-    }
-  },
-  {
-    "rule_id": 29,
-    "rules" : {
-      "manufacturer_ATMEL" : [true, false]
-    }
-  },
-  {
-    "rule_id": 30,
-    "rules": {
-      "manufacturer_STM": [true, false]
-    }
-  },
-  {
-    "rule_id": 31,
-    "rules" : {
-      "manufacturer_ATMEL" : [true, null],
-      "manufacturer_STM" : [true, null]
+      "bluetooth" : [0, 1, 2, 3, 4]
     }
   }
 ]

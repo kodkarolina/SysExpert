@@ -2,19 +2,13 @@ import java.util.HashMap;
 
 public class CModuleModel {
 
-    public final static int BLUETOOTH_2_0_EDR = 1;
-    public final static int PACKAGE_SIMPLE_SMD = 2;
-    public final static int PACKAGE_ADVANCED_SMD = 4;
-    public final static int PACKAGE_BGA = 8;
-
     //values
     public final static String BLUETOOTH = "bluetooth";
     public final static String COMMUNICATION_STANDARD = "communication_standard";
     public final static String RANGE = "range";
     public final static String OPTIMAL_VOLTAGE = "optimal_voltage";
-    public final static String MAXIMAL_VOLTAGE = "maximal_voltage";
     public final static String COMMUNICATION_DIRECTION = "communication_direction";
-    public final static String COMMUNICATION_SPEED = "communication_speed";
+
     public final static String PACKAGE = "package";
     public final static String COMMUNICATION_INTERFACE = "communication_interface";
 
@@ -25,23 +19,41 @@ public class CModuleModel {
     public final static String PROGRAMMABLE = "programmable";
     public final static String ENCRYPTION = "encryption";
     public final static String ARDUINO_SUPPORT = "arduino_support";
-
+    public final static String COMMUNICATION_SPEED = "communication_speed";
 
 
     public HashMap<String, Boolean> parametersFlags;
     public HashMap<String, Integer> parametersValues;
 
-    public CModuleModel(){
+    public CModuleModel() {
         parametersFlags = new HashMap<>();
         parametersValues = new HashMap<>();
 
         //main
+        parametersFlags.put(LOW_PRICE, false);
+        parametersValues.put(RANGE, 0);
+        parametersValues.put(COMMUNICATION_INTERFACE, 3);
+        parametersValues.put(PACKAGE, 0);
 
-        parametersValues.put(BLUETOOTH, BLUETOOTH_2_0_EDR);
+
+        //COMUNNICATION
+        parametersValues.put(COMMUNICATION_STANDARD, 0);
+        parametersValues.put(COMMUNICATION_DIRECTION, 2);
+        parametersFlags.put(COMMUNICATION_SPEED, true);
         parametersFlags.put(ARDUINO_SUPPORT, false);
+        parametersValues.put(BLUETOOTH, 1);
 
 
+        //area
+        parametersFlags.put(OPEN_SPACE, true);
 
+        //Power
+        parametersValues.put(OPTIMAL_VOLTAGE, 1);
+        parametersFlags.put(POWER_SAVING, false);
+
+        //Features
+        parametersFlags.put(PROGRAMMABLE, false);
+        parametersFlags.put(ENCRYPTION, false);
 
     }
 
