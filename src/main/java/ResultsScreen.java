@@ -81,7 +81,7 @@ public class ResultsScreen {
         i2cField.setText(connectionModule.getI2C() != 0 ? "tak" : "nie");
         usbField.setText(connectionModule.getUSB() != 0 ? "tak" : "nie");
         programmableField.setText(connectionModule.getProgrammable() != 0 ? "tak" : "nie");
-        packageField.setText(connectionModule.getModule_package() > 0 ? "montaż przewlekany" : "montaż powierzchniowy");
+        packageField.setText(connectionModule.getModule_package() > 0 ? "montaż powierzchniowy" : "montaż przewlekany");
         speedField.setText(connectionModule.getCommunicationSpeed() + " Mbps");
         currentConsumptionField.setText(connectionModule.getCurrent_consumption() + " mA");
         workFreqField.setText(connectionModule.getWork_freq() + "GHz");

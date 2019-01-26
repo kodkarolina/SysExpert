@@ -35,7 +35,7 @@ public class CModuleModel {
         parametersFlags.put(LOW_PRICE, false);
         parametersValues.put(RANGE, 0);
         parametersValues.put(COMMUNICATION_INTERFACE, 3);
-        parametersValues.put(PACKAGE, 0);
+        parametersValues.put(PACKAGE, 1);
 
 
         //COMUNNICATION
@@ -51,8 +51,8 @@ public class CModuleModel {
         parametersFlags.put(OPEN_SPACE, true);
 
         //Power
-        parametersValues.put(OPTIMAL_VOLTAGE, Integer.MIN_VALUE);
-        parametersValues.put(MINIMAL_VOLTAGE, Integer.MAX_VALUE);
+        parametersValues.put(OPTIMAL_VOLTAGE, Integer.MAX_VALUE);
+        parametersValues.put(MINIMAL_VOLTAGE, Integer.MIN_VALUE);
         parametersFlags.put(POWER_SAVING, false);
 
         //Features

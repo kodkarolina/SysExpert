@@ -32,26 +32,22 @@ public class CMModelMatcher {
         private float priceMax = Float.MIN_VALUE;
         private float powerMin = Float.MAX_VALUE;
         private float powerMax = Float.MIN_VALUE;
-        private int speedMin = Integer.MAX_VALUE;
-        private int speedMax = Integer.MIN_VALUE;
-        private int ramMin = Integer.MAX_VALUE;
-        private int ramMax = Integer.MIN_VALUE;
-        private int pinMin = Integer.MAX_VALUE;
-        private int pinMax = Integer.MIN_VALUE;
+        private float speedMin = Float.MAX_VALUE;
+        private float speedMax = Float.MIN_VALUE;
+        private int rangeMin = Integer.MAX_VALUE;
+        private int rangeMax = Integer.MIN_VALUE;
 
         CMComparator(CModuleModel cmModel, List<CModuleEntity> cmList) {
             this.cmModel = cmModel;
             for (CModuleEntity cm : cmList) {
-//                priceMax = priceMax < cm.getPrice() ? cm.getPrice() : priceMax;
-//                priceMin = priceMin > cm.getPrice() ? cm.getPrice() : priceMin;
-//                powerMax = powerMax < cm.getPower_consumption() ? cm.getPower_consumption() : powerMax;
-//                powerMin = powerMin > cm.getPower_consumption() ? cm.getPower_consumption() : powerMin;
-//                speedMax = speedMax < cm.getCpu_speed() ? cm.getCpu_speed() : speedMax;
-//                speedMin = speedMin > cm.getCpu_speed() ? cm.getCpu_speed() : speedMin;
-//                ramMax = ramMax < cm.getSram_bytes() ? cm.getSram_bytes() : ramMax;
-//                ramMin = ramMin > cm.getSram_bytes() ? cm.getSram_bytes() : ramMin;
-//                pinMax = pinMax < cm.getPin_count() ? cm.getPin_count() : pinMax;
-//                pinMin = pinMin > cm.getPin_count() ? cm.getPin_count() : pinMin;
+                priceMax = priceMax < cm.getPrice() ? cm.getPrice() : priceMax;
+                priceMin = priceMin > cm.getPrice() ? cm.getPrice() : priceMin;
+                powerMax = powerMax < cm.getCurrent_consumption() ? cm.getCurrent_consumption() : powerMax;
+                powerMin = powerMin > cm.getCurrent_consumption() ? cm.getCurrent_consumption() : powerMin;
+                speedMax = speedMax < cm.getCommunicationSpeed() ? cm.getCommunicationSpeed() : speedMax;
+                speedMin = speedMin > cm.getCommunicationSpeed() ? cm.getCommunicationSpeed() : speedMin;
+                rangeMax = rangeMax < cm.getRange() ? cm.getRange() : rangeMax;
+                rangeMin = rangeMin > cm.getRange() ? cm.getRange() : rangeMin;
             }
         }
 
@@ -75,70 +71,59 @@ public class CMModelMatcher {
         private float calculatePoints(CModuleEntity cm) {
             float points = 0;
 
-//            //price
-//            float pricePoints = 1 - ((cm.getPrice() - priceMin) / (priceMax - priceMin));
-//            points += cmModel.parametersFlags.get(CModuleModel.SMALL_SERIES) ? 2 * pricePoints : 4 * pricePoints;
-//
-//            //power consumption
-//            if (cmModel.parametersFlags.get(CModuleModel.POWER_SAVING)) {
-//                points += 1 - ((cm.getPower_consumption() - powerMin) / (powerMax - powerMin));
-//            }
-//
-//            //OS support
-//            if (cmModel.parametersFlags.get(CModuleModel.OS_SUPPORT)) {
-//                points += cm.getManufacturer().equals("STM") ? 1 : 0;
-//            }
-//
-//            //graphics features support
-//            if (cmModel.parametersFlags.get(CModuleModel.GRAPHICS_FEATURES)) {
-//                points += cm.getGraphics_support() > 0 ? 1 : 0;
-//            }
-//
-//            //performance
-//            if (cmModel.parametersFlags.get(CModuleModel.HIGH_PERFORMANCE)) {
-//                points += (((float) cm.getCpu_speed() - speedMin) / (speedMax - speedMin));
-//            }
-//            if (cmModel.parametersFlags.get(CModuleModel.FPU)) {
-//                points += cm.getFPU() > 0 ? 2 : 0;
-//            }
-//
-//            //IO
-//            if (cmModel.parametersFlags.get(CModuleModel.IO_EXPANDERS)) {
-//                if (cm.getPin_count() >= cmModel.parametersValues.get(CModuleModel.IO_PORTS_NUMBER)) {
-//                    if (cm.getPin_count() >= cmModel.parametersValues.get(CModuleModel.IO_PORTS_NUMBER) * 1.75f) {
-//                        points += 1;
-//                    } else {
-//                        points += 2;
-//                    }
-//                } else if (cm.getPin_count() >= cmModel.parametersValues.get(CModuleModel.IO_PORTS_NUMBER) * 0.5f) {
-//                    points += 1;
-//                }
-//
-//            } else {
-//                if (cm.getPin_count() >= cmModel.parametersValues.get(CModuleModel.IO_PORTS_NUMBER) * 1.75f) {
-//                    points += (((float) cm.getPin_count() - pinMin) / (pinMax - pinMin));
-//                } else {
-//                    points += 1 + (((float) cm.getPin_count() - pinMin) / (pinMax - pinMin));
-//                }
-//            }
-//
-//            //RAM
-//            if (cmModel.parametersFlags.get(CModuleModel.EXTERNAL_RAM)) {
-//                points += cm.getExternal_ram_support() > 0 ? 1 : 0;
-//            }
-//            points += (((float) cm.getSram_bytes() - ramMin) / (ramMax - ramMin));
-//
-//            //DAC - using "handmade" DAC
-//            int numberOfDAC = cmModel.parametersValues.get(CModuleModel.DAC_NUMBER);
-//            int resolutionOfDAC = cmModel.parametersValues.get(CModuleModel.DAC_RESOLUTION);
-//
-//            if (cm.getDAC_output() >= numberOfDAC) {
-//                points += 2;
-//            } else if ((numberOfDAC - cm.getDAC_output() == 1) && resolutionOfDAC <= 8) {
-//                if (cm.getPin_count() > cmModel.parametersValues.get(CModuleModel.IO_PORTS_NUMBER) + 10) {
-//                    points += 1;
-//                }
-//            }
+            //price
+            float pricePoints = 1 - ((cm.getPrice() - priceMin) / (priceMax - priceMin));
+            points += cmModel.parametersFlags.get(CModuleModel.LOW_PRICE) ? 3 * pricePoints : 2 * pricePoints;
+
+            //power consumption
+            if (cmModel.parametersFlags.get(CModuleModel.POWER_SAVING)) {
+                points += 1 - ((cm.getCurrent_consumption() - powerMin) / (powerMax - powerMin));
+                points += cm.getPower_saving() > 0 ? 1 : 0;
+            }
+
+            //communication speed
+            points += ((cm.getCommunicationSpeed() - speedMin) / (speedMax - speedMin));
+
+
+            // range
+            points += ((cm.getRange() - rangeMin) / (rangeMax - rangeMin)) *
+                    (cmModel.parametersFlags.get(CModuleModel.OPEN_SPACE) ? 1 : 2);
+
+            //package
+            if (cmModel.parametersValues.get(CModuleModel.PACKAGE)>0){
+                points+=cm.getModule_package()>0 ? 0.5 : 0;
+            }
+
+            // arduino
+            if (cmModel.parametersFlags.get(CModuleModel.ARDUINO_SUPPORT)) {
+                points += cm.getArduino_support() > 0 ? 1 : 0;
+            }
+
+            // programmable
+            if (cmModel.parametersFlags.get(CModuleModel.PROGRAMMABLE)) {
+                points += cm.getProgrammable() > 0 ? 1 : 0;
+            }
+
+            // encryption
+            if (cmModel.parametersFlags.get(CModuleModel.ENCRYPTION)) {
+                points += cm.getEncryption() > 0 ? 1 : 0;
+            }
+
+            //low latency
+            if (cmModel.parametersFlags.get(CModuleModel.LOW_LATENCY)){
+                if(cm.getRadio()>0){
+                    points+=1;
+                }else if(cm.getBluetooth()>0){
+                    points+=0.5;
+                }
+            }
+
+            if(cmModel.parametersFlags.get(CModuleModel.POINT2POINT)){
+                if(cm.getRadio()>0 || cm.getBluetooth()>0 ){
+                    points+=1;
+                }
+
+            }
 
             return points;
         }
@@ -178,7 +163,7 @@ public class CMModelMatcher {
         if (package_lvl == 0) {
             prepSQL = "( package = 0 )";
         } else {
-            prepSQL = "( package = 1 )";
+            prepSQL = "( 1 )";
         }
 
         return prepSQL;
@@ -208,7 +193,7 @@ public class CMModelMatcher {
 
     private String prepareCommunicationDirectionFilter(CModuleModel cmModel) {
         int direction = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_DIRECTION);
-        switch(direction){
+        switch (direction) {
             case 0:
                 return "( direction = 0)";
             case 1:
