@@ -8,7 +8,7 @@ public class CModuleModel {
     public final static String RANGE = "range";
     public final static String OPTIMAL_VOLTAGE = "optimal_voltage";
     public final static String COMMUNICATION_DIRECTION = "communication_direction";
-
+    public final static String MINIMAL_VOLTAGE = "minimal_voltage";
     public final static String PACKAGE = "package";
     public final static String COMMUNICATION_INTERFACE = "communication_interface";
 
@@ -51,7 +51,8 @@ public class CModuleModel {
         parametersFlags.put(OPEN_SPACE, true);
 
         //Power
-        parametersValues.put(OPTIMAL_VOLTAGE, 1);
+        parametersValues.put(OPTIMAL_VOLTAGE, Integer.MIN_VALUE);
+        parametersValues.put(MINIMAL_VOLTAGE, Integer.MAX_VALUE);
         parametersFlags.put(POWER_SAVING, false);
 
         //Features

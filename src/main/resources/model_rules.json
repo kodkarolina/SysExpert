@@ -20,7 +20,8 @@
   {
     "rule_id": 3,
     "rules" : {
-      "optimal_voltage" : [3000, 5000, 9000, 1]
+      "optimal_voltage" : [3000, 5000, 9000, null],
+      "minimal_voltage" :[1000, 3000, 5000, null]
     }
   },
   {
@@ -38,7 +39,7 @@
   {
     "rule_id": 6,
     "rules" : {
-      "communication_direction" : [0, 2]
+      "communication_direction" : [null, 2]
     }
   },
   {

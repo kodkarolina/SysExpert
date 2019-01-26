@@ -150,29 +150,14 @@ public class CMModelMatcher {
         String sqlStatement = "SELECT * FROM cm_database WHERE ";
         StringBuilder stringBuilder = new StringBuilder(sqlStatement);
 
-//        stringBuilder.append(prepareEncryptionFilter(cmModel));
-//        stringBuilder.append(" AND ");
         stringBuilder.append(preparePackageFilter(cmModel));
         stringBuilder.append(" AND ");
         stringBuilder.append(prepareVoltageFilter(cmModel));
         stringBuilder.append(" AND ");
         stringBuilder.append(prepareInterfaceFilter(cmModel));
         stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareRangeFilter(cmModel));
-//        stringBuilder.append(" AND ");
         stringBuilder.append(prepareCommunicationDirectionFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareCommunicationStandardFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareBluetoothFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareProgrammableFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareCommunicationSpeedFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareArduinoSupportFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(preparePowerSavingFilter(cmModel));
+
 
         try {
             String statementSQL = stringBuilder.toString();
@@ -188,208 +173,50 @@ public class CMModelMatcher {
 
     private String preparePackageFilter(CModuleModel ucModel) {
         int package_lvl = ucModel.parametersValues.get(CModuleModel.PACKAGE);
-        String prepSQL = null;
+        String prepSQL;
 
         if (package_lvl == 0) {
-            prepSQL = " package = 0";
-        }
-
-        if (package_lvl == 1) {
-            prepSQL = " package = 1";
+            prepSQL = "( package = 0 )";
+        } else {
+            prepSQL = "( package = 1 )";
         }
 
         return prepSQL;
     }
-
 
     private String prepareVoltageFilter(CModuleModel cmModel) {
-        String prepSQL=null;
-        int minimalVoltage = 0;
-        int optimalVoltage = cmModel.parametersValues.get(CModuleModel.OPTIMAL_VOLTAGE);
-        if(optimalVoltage == 1){
-           prepSQL = String.format("(voltage_min >= %d", minimalVoltage);
-        }else {
-            prepSQL = String.format("( voltage_min <= %d AND voltage_max >= %d ) ", optimalVoltage, optimalVoltage);
-        }
-        return prepSQL;
-    }
 
+        int minimalVoltage = cmModel.parametersValues.get(CModuleModel.MINIMAL_VOLTAGE);
+        int optimalVoltage = cmModel.parametersValues.get(CModuleModel.OPTIMAL_VOLTAGE);
+
+        return String.format("( voltage_min >= %d AND voltage_max <= %d ) ", minimalVoltage, optimalVoltage);
+    }
 
     private String prepareInterfaceFilter(CModuleModel cmModel) {
-        StringBuilder sb = new StringBuilder("( ");
         int interfaceType = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_INTERFACE);
-        if (interfaceType == 0) {
-            sb.append(" SPI = 1");
+        switch (interfaceType) {
+            case 0:
+                return "( SPI = 1 )";
+            case 1:
+                return "( I2C = 1 )";
+            case 2:
+                return "( UART = 1 )";
+            default:
+                return "( 1 )";
         }
-
-        if (interfaceType == 1) {
-            sb.append(" I2C = 1");
-        }
-
-        if (interfaceType == 2) {
-            sb.append(" UART = 1");
-        }
-
-        if (interfaceType == 3){
-            sb.append(" SPI = 1 OR I2C = 1 OR UART = 1");
-        }
-
-        sb.append(") ");
-        return sb.toString();
-    }
-
-    private String prepareRangeFilter(CModuleModel cmModel) {
-        StringBuilder sb = new StringBuilder("( ");
-        int range = cmModel.parametersValues.get(CModuleModel.RANGE);
-        if (range == 10) {
-            sb.append(" range <= 10");
-        }
-
-        if (range == 100) {
-            sb.append(" range <= 100");
-        }
-
-        if (range == 500) {
-            sb.append(" range <= 500");
-        }
-
-        if (range == 1){
-            sb.append(" range >= 0");
-        }
-
-        sb.append(") ");
-        return sb.toString();
     }
 
     private String prepareCommunicationDirectionFilter(CModuleModel cmModel) {
-        StringBuilder sb = new StringBuilder("( ");
-        int interfaceType = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_DIRECTION);
-        if (interfaceType == 0) {
-            sb.append(" direction = 0");
+        int direction = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_DIRECTION);
+        switch(direction){
+            case 0:
+                return "( direction = 0)";
+            case 1:
+                return "( direction = 1)";
+            default:
+                return "( direction = 2)";
         }
 
-        if (interfaceType == 1) {
-            sb.append(" direction = 1");
-        }
-
-        if (interfaceType == 2) {
-            sb.append(" direction = 2");
-        }
-
-        sb.append(") ");
-        return sb.toString();
-    }
-
-//    private String prepareCommunicationStandardFilter(CModuleModel cmModel) {
-//        StringBuilder sb = new StringBuilder("( ");
-//        int standardType = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_STANDARD);
-//        if (standardType == 0) {
-//            sb.append(" bluetooth >= 1");
-//        }// Czy tu nie powinien być null? Bo później jest bardziej szczegółowe pytanie, albo w ogóle tego nie dawać dla bluetootha
-//
-//        if (standardType == 1) {
-//            sb.append(" wifi = 1");
-//        }
-//
-//        if (standardType == 2) {
-//            sb.append(" radio = 1");
-//        }
-//
-//        sb.append(") ");
-//        return sb.toString();
-//    }
-
-//    private String prepareBluetoothFilter(CModuleModel cmModel) {
-//        StringBuilder sb = new StringBuilder("( ");
-//        int bluetoothversion = cmModel.parametersValues.get(CModuleModel.BLUETOOTH);
-//        if (bluetoothversion == 0) {
-//            sb.append(" bluetooth = 1");
-//        }
-//
-//        if (bluetoothversion == 1) {
-//            sb.append(" bluetooth = 2");
-//        }
-//
-//        if (bluetoothversion== 2) {
-//            sb.append(" bluetooth = 3");
-//        }
-//
-//        if (bluetoothversion == 3) {
-//            sb.append(" bluetooth = 4");
-//        }
-//
-//        if (bluetoothversion == 4){
-//            sb.append(" bluetooth >= 1");
-//        }
-//
-//        sb.append(") ");
-//        return sb.toString();
-//    }
-
-    private String prepareCommunicationSpeedFilter(CModuleModel cmModel) {
-        String prepSQL = null;
-        boolean speed = cmModel.parametersFlags.get(CModuleModel.COMMUNICATION_SPEED);
-        if (speed) {
-            prepSQL = "( communication_speed >= 1)";
-        }
-
-        if (!speed) {
-            prepSQL = "( communication_speed >= 0)";
-        }
-
-        return prepSQL;
-    }
-
-    private String prepareArduinoSupportFilter(CModuleModel cmModel){
-        String prepSQL = null;
-        boolean adruinoSupport = cmModel.parametersFlags.get(CModuleModel.ARDUINO_SUPPORT);
-        if(adruinoSupport){
-            prepSQL = "(arduino_support = 1)";
-        }
-
-        if(!adruinoSupport){
-            prepSQL = "(arduino_support >= 0)";
-        }
-        return prepSQL;
-    }
-
-
-    private String preparePowerSavingFilter(CModuleModel cmModel){
-        String prepSQL = null;
-        boolean powerSaving = cmModel.parametersFlags.get(CModuleModel.POWER_SAVING);
-        if(powerSaving){
-            prepSQL = "(power_saving = 1)";
-        }
-
-        if(!powerSaving){
-            prepSQL = "(power_saving >= 0)";
-        }
-        return prepSQL;
-    }
-
-    private String prepareProgrammableFilter(CModuleModel cmModel){
-        String prepSQL = null;
-        boolean programmable = cmModel.parametersFlags.get(CModuleModel.PROGRAMMABLE);
-        if(programmable){
-            prepSQL = "(programmable = 1)";
-        }
-
-        if(!programmable){
-            prepSQL = "(programmable >= 0)";
-        }
-        return prepSQL;
-    }
-    private String prepareEncryptionFilter(CModuleModel cmModel){
-        String prepSQL = null;
-        boolean encryption = cmModel.parametersFlags.get(CModuleModel.ENCRYPTION);
-        if(encryption){
-            prepSQL = "(encryption = 1)";
-        }
-
-        if(!encryption){
-            prepSQL = "(encryption >= 0)";
-        }
-        return prepSQL;
     }
 
 
