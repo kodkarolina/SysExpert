@@ -3,8 +3,8 @@ import java.util.HashMap;
 public class CModuleModel {
 
     //values
-    public final static String BLUETOOTH = "bluetooth";
-    public final static String COMMUNICATION_STANDARD = "communication_standard";
+
+
     public final static String RANGE = "range";
     public final static String OPTIMAL_VOLTAGE = "optimal_voltage";
     public final static String COMMUNICATION_DIRECTION = "communication_direction";
@@ -20,6 +20,8 @@ public class CModuleModel {
     public final static String ENCRYPTION = "encryption";
     public final static String ARDUINO_SUPPORT = "arduino_support";
     public final static String COMMUNICATION_SPEED = "communication_speed";
+    public final static String LOW_LATENCY  = "low_latency";
+    public final static String POINT2POINT = "point_to_point";
 
 
     public HashMap<String, Boolean> parametersFlags;
@@ -37,11 +39,12 @@ public class CModuleModel {
 
 
         //COMUNNICATION
-        parametersValues.put(COMMUNICATION_STANDARD, 0);
+        parametersFlags.put(POINT2POINT, false);
+        parametersFlags.put(LOW_LATENCY, false);
         parametersValues.put(COMMUNICATION_DIRECTION, 2);
         parametersFlags.put(COMMUNICATION_SPEED, true);
         parametersFlags.put(ARDUINO_SUPPORT, false);
-        parametersValues.put(BLUETOOTH, 1);
+
 
 
         //area

@@ -19,7 +19,7 @@
   },
   {
     "questionID" : 2,
-    "question" : "Jaki jest minimalny zasięg modułu",
+    "question" : "Jaki powinien być minimalny zasięg modułu?",
     "answers" : [
       "do 10 m",
       "do 100 m",
@@ -45,12 +45,21 @@
     "answers" : [
       "tak",
       "nie"
-
     ],
     "nextQuestionIds" : [5, 5]
   },
+
   {
     "questionID" : 5,
+    "question" : "Czy preferujesz komunikację bezpośrednią (point to point), czy urządzenie może łączyć się w sieć?",
+    "answers" : [
+      "komunikacja bezpośrednia",
+      "komunikacja przez sieć"
+    ],
+    "nextQuestionIds" : [6, 6]
+  },
+  {
+    "questionID" : 6,
     "question" : "Komunikacja ma się odbywać jedno czy dwukierunkowo?",
     "answers" : [
       "jednokierunkowo",
@@ -78,13 +87,12 @@
   },
   {
     "questionID" : 9,
-    "question" : "Preferwany standard komunikacji",
+    "question" : "Czy niska latencja jest krytyczna?",
     "answers" : [
-      "Bluetooth",
-      "WiFi",
-      "Radio"
+      "tak",
+      "nie"
     ],
-    "nextQuestionIds" : [15, 10, 10]
+    "nextQuestionIds" : [10, 10]
   },
   {
     "questionID" : 10,
@@ -135,7 +143,7 @@
   },
   {
     "questionID" : 15,
-    "question" : "Która wersja bluetooth jest preferowana?",
+    "question" : "Czy preferujesz konkretną wersję Bluetooth?",
     "answers" : [
       "v.2.0 + EDR",
       "v.2.1 + EDR",
@@ -143,7 +151,7 @@
       "v.4.1",
       "dowolna"
     ],
-    "nextQuestionIds" : [10, 10, 10, 10, 10]
+    "nextQuestionIds" : [-1, -1, -1, -1, -1]
   }
 
 ]

@@ -150,25 +150,29 @@ public class CMModelMatcher {
         String sqlStatement = "SELECT * FROM cm_database WHERE ";
         StringBuilder stringBuilder = new StringBuilder(sqlStatement);
 
-//        stringBuilder.append(prepareManufacturerFilter(cmModel));
+//        stringBuilder.append(prepareEncryptionFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(preparePackageFilter(cmModel));
+        stringBuilder.append(preparePackageFilter(cmModel));
+        stringBuilder.append(" AND ");
+        stringBuilder.append(prepareVoltageFilter(cmModel));
+        stringBuilder.append(" AND ");
+        stringBuilder.append(prepareInterfaceFilter(cmModel));
+        stringBuilder.append(" AND ");
+//        stringBuilder.append(prepareRangeFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareVoltageFilter(cmModel));
+        stringBuilder.append(prepareCommunicationDirectionFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareInterfacesFilter(cmModel));
+//        stringBuilder.append(prepareCommunicationStandardFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareIOFilter(cmModel));
+//        stringBuilder.append(prepareBluetoothFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareADCFilter(cmModel));
+//        stringBuilder.append(prepareProgrammableFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareDACFilter(cmModel));
+//        stringBuilder.append(prepareCommunicationSpeedFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareFlashFilter(cmModel));
+//        stringBuilder.append(prepareArduinoSupportFilter(cmModel));
 //        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareSramFilter(cmModel));
-//        stringBuilder.append(" AND ");
-//        stringBuilder.append(prepareCountersFilter(cmModel));
+//        stringBuilder.append(preparePowerSavingFilter(cmModel));
 
         try {
             String statementSQL = stringBuilder.toString();
@@ -182,122 +186,211 @@ public class CMModelMatcher {
         return resultSet != null ? CMdatabaseDAO.rowsToObject(resultSet) : Collections.emptyList();
     }
 
-//    private String prepareManufacturerFilter(CModuleModel cmModel) {
+    private String preparePackageFilter(CModuleModel ucModel) {
+        int package_lvl = ucModel.parametersValues.get(CModuleModel.PACKAGE);
+        String prepSQL = null;
+
+        if (package_lvl == 0) {
+            prepSQL = " package = 0";
+        }
+
+        if (package_lvl == 1) {
+            prepSQL = " package = 1";
+        }
+
+        return prepSQL;
+    }
+
+
+    private String prepareVoltageFilter(CModuleModel cmModel) {
+        String prepSQL=null;
+        int minimalVoltage = 0;
+        int optimalVoltage = cmModel.parametersValues.get(CModuleModel.OPTIMAL_VOLTAGE);
+        if(optimalVoltage == 1){
+           prepSQL = String.format("(voltage_min >= %d", minimalVoltage);
+        }else {
+            prepSQL = String.format("( voltage_min <= %d AND voltage_max >= %d ) ", optimalVoltage, optimalVoltage);
+        }
+        return prepSQL;
+    }
+
+
+    private String prepareInterfaceFilter(CModuleModel cmModel) {
+        StringBuilder sb = new StringBuilder("( ");
+        int interfaceType = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_INTERFACE);
+        if (interfaceType == 0) {
+            sb.append(" SPI = 1");
+        }
+
+        if (interfaceType == 1) {
+            sb.append(" I2C = 1");
+        }
+
+        if (interfaceType == 2) {
+            sb.append(" UART = 1");
+        }
+
+        if (interfaceType == 3){
+            sb.append(" SPI = 1 OR I2C = 1 OR UART = 1");
+        }
+
+        sb.append(") ");
+        return sb.toString();
+    }
+
+    private String prepareRangeFilter(CModuleModel cmModel) {
+        StringBuilder sb = new StringBuilder("( ");
+        int range = cmModel.parametersValues.get(CModuleModel.RANGE);
+        if (range == 10) {
+            sb.append(" range <= 10");
+        }
+
+        if (range == 100) {
+            sb.append(" range <= 100");
+        }
+
+        if (range == 500) {
+            sb.append(" range <= 500");
+        }
+
+        if (range == 1){
+            sb.append(" range >= 0");
+        }
+
+        sb.append(") ");
+        return sb.toString();
+    }
+
+    private String prepareCommunicationDirectionFilter(CModuleModel cmModel) {
+        StringBuilder sb = new StringBuilder("( ");
+        int interfaceType = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_DIRECTION);
+        if (interfaceType == 0) {
+            sb.append(" direction = 0");
+        }
+
+        if (interfaceType == 1) {
+            sb.append(" direction = 1");
+        }
+
+        if (interfaceType == 2) {
+            sb.append(" direction = 2");
+        }
+
+        sb.append(") ");
+        return sb.toString();
+    }
+
+//    private String prepareCommunicationStandardFilter(CModuleModel cmModel) {
 //        StringBuilder sb = new StringBuilder("( ");
-//        boolean firstCondition = true;
+//        int standardType = cmModel.parametersValues.get(CModuleModel.COMMUNICATION_STANDARD);
+//        if (standardType == 0) {
+//            sb.append(" bluetooth >= 1");
+//        }// Czy tu nie powinien być null? Bo później jest bardziej szczegółowe pytanie, albo w ogóle tego nie dawać dla bluetootha
 //
-//        if (cmModel.parametersFlags.get(CModuleModel.MANUFACTURER_STM)) {
-//            sb.append("manufacturer is \'STM\'");
-//            firstCondition = false;
+//        if (standardType == 1) {
+//            sb.append(" wifi = 1");
 //        }
 //
-//        if (cmModel.parametersFlags.get(CModuleModel.MANUFACTURER_ATMEL)) {
-//            if (!firstCondition) sb.append(" OR ");
-//            sb.append("manufacturer is \'ATMEL\'");
-//            firstCondition = false;
-//        }
-//
-//        if (firstCondition) {
-//            sb.append("0");
-//        }
-//        sb.append(") ");
-//        return sb.toString();
-//    }
-//
-//    private String preparePackageFilter(CModuleModel ucModel) {
-//        int package_lvl = ucModel.parametersValues.get(CModuleModel.UC_PACKAGE);
-//        StringBuilder sb = new StringBuilder("( package_tht = 1");
-//
-//        if (package_lvl >= CModuleModel.PACKAGE_SIMPLE_SMD) {
-//            sb.append(" OR package_easy = 1");
-//        }
-//
-//        if (package_lvl >= CModuleModel.PACKAGE_ADVANCED_SMD) {
-//            sb.append(" OR package_hard = 1");
-//        }
-//
-//        if (package_lvl >= CModuleModel.PACKAGE_BGA) {
-//            sb.append(" OR package_bga = 1");
+//        if (standardType == 2) {
+//            sb.append(" radio = 1");
 //        }
 //
 //        sb.append(") ");
 //        return sb.toString();
 //    }
-//
-//    private String prepareVoltageFilter(CModuleModel ucModel) {
-//        int optimalVoltage = ucModel.parametersValues.get(CModuleModel.OPTIMAL_VOLTAGE);
-//        int minimalVoltage = ucModel.parametersValues.get(CModuleModel.MINIMAL_VOLTAGE);
-//        if (minimalVoltage > optimalVoltage) {
-//            minimalVoltage = optimalVoltage;
-//        }
-//        return String.format("( voltage_min <= %d AND voltage_max >= %d ) ", minimalVoltage, optimalVoltage);
-//    }
-//
-//    private String prepareInterfacesFilter(CModuleModel ucModel) {
+
+//    private String prepareBluetoothFilter(CModuleModel cmModel) {
 //        StringBuilder sb = new StringBuilder("( ");
-//        sb.append(String.format("UART >= %d AND SPI >= %d AND I2C >= %d AND CAN >= %d",
-//                ucModel.parametersValues.get(CModuleModel.UART_INTERFACES),
-//                ucModel.parametersValues.get(CModuleModel.SPI_INTERFACES),
-//                ucModel.parametersValues.get(CModuleModel.I2C_INTERFACES),
-//                ucModel.parametersValues.get(CModuleModel.CAN_INTERFACES)
-//        ));
+//        int bluetoothversion = cmModel.parametersValues.get(CModuleModel.BLUETOOTH);
+//        if (bluetoothversion == 0) {
+//            sb.append(" bluetooth = 1");
+//        }
 //
-//        if (ucModel.parametersFlags.get(CModuleModel.USB_INTERFACES)) {
-//            sb.append(" AND USB >= 1");
+//        if (bluetoothversion == 1) {
+//            sb.append(" bluetooth = 2");
+//        }
+//
+//        if (bluetoothversion== 2) {
+//            sb.append(" bluetooth = 3");
+//        }
+//
+//        if (bluetoothversion == 3) {
+//            sb.append(" bluetooth = 4");
+//        }
+//
+//        if (bluetoothversion == 4){
+//            sb.append(" bluetooth >= 1");
 //        }
 //
 //        sb.append(") ");
 //        return sb.toString();
 //    }
-//
-//    private String prepareIOFilter(CModuleModel ucModel) {
-//        String preparedSQL = null;
-//        int minimalIO = ucModel.parametersValues.get(CModuleModel.IO_PORTS_NUMBER);
-//        if (!ucModel.parametersFlags.get(CModuleModel.IO_EXPANDERS)) {
-//            preparedSQL = String.format("( pin_count >= %d ) ", minimalIO);
-//        } else {
-//            preparedSQL = "( pin_count >= 0 )";
-//        }
-//        return preparedSQL;
-//    }
-//
-//    private String prepareADCFilter(CModuleModel ucModel) {
-//        int numberOfADC = ucModel.parametersValues.get(CModuleModel.ADC_NUMBER);
-//        int resolutionOfADC = ucModel.parametersValues.get(CModuleModel.ADC_RESOLUTION);
-//        return String.format(" ( ADC_input >= %d AND ADC_resolution >= %d ) ", numberOfADC, resolutionOfADC);
-//    }
-//
-//    private String prepareDACFilter(CModuleModel ucModel) {
-//        int numberOfDAC = ucModel.parametersValues.get(CModuleModel.DAC_NUMBER);
-//        int resolutionOfDAC = ucModel.parametersValues.get(CModuleModel.DAC_RESOLUTION);
-//        String preparedSQL;
-//
-//        if (numberOfDAC >= 1 && (resolutionOfDAC > 8)) {
-//            preparedSQL = String.format(" ( DAC_output >= %d AND DAC_resolution >= %d ) ", numberOfDAC, resolutionOfDAC);
-//        } else {
-//            preparedSQL = " ( DAC_output >= 0 ) ";
-//        }
-//
-//        return preparedSQL;
-//    }
-//
-//    private String prepareFlashFilter(CModuleModel ucModel) {
-//        return String.format(" ( flash_kb >= %d ) ", ucModel.parametersValues.get(CModuleModel.FLASH_SIZE));
-//    }
-//
-//    private String prepareSramFilter(CModuleModel ucModel) {
-//        String preparedSQL;
-//        int ramUsage = ucModel.parametersValues.get(CModuleModel.RAM_SIZE);
-//        if (!ucModel.parametersFlags.get(CModuleModel.EXTERNAL_RAM)) {
-//            preparedSQL = String.format("( sram_bytes >= %d ) ", ramUsage);
-//        } else {
-//            preparedSQL = "( sram_bytes >= 0 )";
-//        }
-//        return preparedSQL;
-//    }
-//
-//    private String prepareCountersFilter(CModuleModel ucModel) {
-//        return String.format(" ( counters >= %d ) ", ucModel.parametersValues.get(CModuleModel.COUNTERS));
-//    }
+
+    private String prepareCommunicationSpeedFilter(CModuleModel cmModel) {
+        String prepSQL = null;
+        boolean speed = cmModel.parametersFlags.get(CModuleModel.COMMUNICATION_SPEED);
+        if (speed) {
+            prepSQL = "( communication_speed >= 1)";
+        }
+
+        if (!speed) {
+            prepSQL = "( communication_speed >= 0)";
+        }
+
+        return prepSQL;
+    }
+
+    private String prepareArduinoSupportFilter(CModuleModel cmModel){
+        String prepSQL = null;
+        boolean adruinoSupport = cmModel.parametersFlags.get(CModuleModel.ARDUINO_SUPPORT);
+        if(adruinoSupport){
+            prepSQL = "(arduino_support = 1)";
+        }
+
+        if(!adruinoSupport){
+            prepSQL = "(arduino_support >= 0)";
+        }
+        return prepSQL;
+    }
+
+
+    private String preparePowerSavingFilter(CModuleModel cmModel){
+        String prepSQL = null;
+        boolean powerSaving = cmModel.parametersFlags.get(CModuleModel.POWER_SAVING);
+        if(powerSaving){
+            prepSQL = "(power_saving = 1)";
+        }
+
+        if(!powerSaving){
+            prepSQL = "(power_saving >= 0)";
+        }
+        return prepSQL;
+    }
+
+    private String prepareProgrammableFilter(CModuleModel cmModel){
+        String prepSQL = null;
+        boolean programmable = cmModel.parametersFlags.get(CModuleModel.PROGRAMMABLE);
+        if(programmable){
+            prepSQL = "(programmable = 1)";
+        }
+
+        if(!programmable){
+            prepSQL = "(programmable >= 0)";
+        }
+        return prepSQL;
+    }
+    private String prepareEncryptionFilter(CModuleModel cmModel){
+        String prepSQL = null;
+        boolean encryption = cmModel.parametersFlags.get(CModuleModel.ENCRYPTION);
+        if(encryption){
+            prepSQL = "(encryption = 1)";
+        }
+
+        if(!encryption){
+            prepSQL = "(encryption >= 0)";
+        }
+        return prepSQL;
+    }
+
 
 }

@@ -1,4 +1,4 @@
-Name,Bluetooth,WiFi,Radio,Range,Minimal_voltage,Maximal_voltage,Power_saving,Communincation_direction,UART,SPI,I2C,USB,Programmable,Package,Communication_speed,Current_consumption,Work_frequency,Ecryption,Single_price,Arduino_support
+Name,Bluetooth,WiFi,Radio,Range,Minimal_voltage,Maximal_voltage,Power_saving,Communincation_direction,UART,SPI,I2C,USB,Programmable,Package,Communication_speed,Current_consumption,Work_frequency,Encryption,Single_price,Arduino_support
 HC-05,1,0,0,10,3600,6000,0,2,1,0,0,0,0,0,1,15,2.4,1,35.9,1
 NRF51822,3,0,0,30,2000,3600,1,2,1,1,1,0,1,0,1,18,2.4,1,29.9,1
 Grove - moduł z Bluetooth 2.0 z EDR,1,0,0,10,5000,5000,1,2,1,0,0,0,0,1,2,25,2.4,1,99,1

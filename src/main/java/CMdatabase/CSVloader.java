@@ -26,7 +26,7 @@ public class CSVloader {
     public static final String COMMUNICATION_SPEED = "Communication_speed";
     public static final String CURRENT_CONSUMPTION = "Current_consumption";
     public static final String WORK_FREQ = "Work_frequency";
-    public static final String ENCRYPTION = "Ecryption";
+    public static final String ENCRYPTION = "Encryption";
     public static final String PRICE = "Single_price";
     public static final String ARDUINO_SUPPORT = "Arduino_support";
 
